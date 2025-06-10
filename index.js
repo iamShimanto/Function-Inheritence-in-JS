@@ -7,7 +7,6 @@ class Person{
         console.log(`Hi, i am ${this.name}`)
     }
 }
-
 class Student extends Person{
     constructor(name, age, marks) {
         super(name, age) // parents class constructor in being called
