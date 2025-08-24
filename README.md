@@ -1,134 +1,91 @@
-📘 JavaScript Methods Cheatsheet (with Examples)
+// let array = [125, 245, 14, 6, 14, 1465, 47, 4,6];
 
+// array.sort((a, b) => {    #sort method
+//     return a - b
+// })
 
----
+// let spliceArr = array.splice(1,2,333)   #splice method
 
-🔹 Array Methods
+// console.log(array.slice(0, 4));   #slice method
 
-Add / Remove
+// let res = array.at(1)  #output 245    # at method
+// let res = array.at(-1)  #output 4
 
-let arr = [1,2];
-arr.push(3);   // [1,2,3]
+// let res = array.concat(array, 999 , 888)  # concat method
 
-arr.pop();     // [1,2]
+// let res = array.copyWithin(4, 0, 5);    # copywithin method
 
-arr.unshift(0); // [0,1,2]
+// let res = array.entries().next()   #OUTPUT #output 245   # entries method
 
-arr.shift();    // [1,2]
+// let res = array.every((item) => {    # every method
+// return item > 3  # output true
+// return item > 10  #output false
+// })
 
-Search / Find
+// let res = array.fill(0)  #output [ 0, 0, 0, 0,  0, 0, 0, 0]  #fill method
+// let res = array.fill(999, 0, 3);  #output [999, 999, 999, 6, 14, 1465, 47, 4]
 
-[10,20,30].indexOf(20);     // 1
-[10,20,10].lastIndexOf(10); // 2
-[1,2,3].includes(2);        // true
+// let res = array.filter((item) => {   #filter method
+//     return item < 10   #output [6,4]
+// })
 
-[5,12,8].find(x => x > 10);       // 12
-[5,12,8].findIndex(x => x > 10);  // 1
+// let res = array.find((item) => {
+//     return item > 10  #output 125  ### target first element (true value) of the array
+// })
 
-Iterate / Transform
+// let res = array.findIndex((item) => {
+//     return item < 10   #output 3   ### target first element index no (true value) of the array....
+// })
 
-[1,2,3].forEach(x => console.log(x)); // 1,2,3
-[1,2,3].map(x => x*2);                // [2,4,6]
-[1,2,3,4].filter(x => x%2==0);        // [2,4]
-[1,2,3].reduce((a,b)=>a+b,0);         // 6
+// let flatArr = [23,23,[34,453,4556],[999]]  # flat method
+// let res = flatArr.flat()  #output [ 23, 23, 34, 453, 4556, 999 ]  nested array convert in 1 array
 
-Order
+// let arr = [1, 2, 3, 4, 5];    # flatmap method
+// let res = arr.flatMap((item) => {
+// return [item , item * 2]  #output [  1, 2, 2, 4,  3,  6, 4, 8, 5, 10]
+// return [item * 2]   #output [2, 4, 6, 8, 10]
+// });
 
-[20,5,1].sort((a,b)=>a-b); // [1,5,20]
-[1,2,3].reverse();         // [3,2,1]
+// let res = array.includes(4) # output (true) search value  ### inclues method
 
-Slice / Splice
+// let res = array.indexOf(4)  #output 7 ## search item index no   ### indexof method
 
-[1,2,3,4].slice(1,3);       // [2,3]
+// let res = array.keys()  ### keys method
 
-let arr=[1,2,3];
-arr.splice(1,1,9);          // [1,9,3]
+// for (let key of res) {
+//     console.log(key)  ###output 0 1 2 3 4 5 6 7  ### show all index no
+// }
 
-[1,2].concat([3,4]);        // [1,2,3,4]
+// let res = array.map((item, index) => {   ### map method
+//     return console.log(index , " " , item)
+// })
 
-[1,[2,[3]]].flat(2);        // [1,2,3]
+// let res = array.lastIndexOf(6)   # lastIndexOf method
 
-Other
+// let res = array.reduce((a, b) => {        ### reduce method
+//   return a + b
+// })
 
-[1,2,3].join("-");          // "1-2-3"
-[2,4,6].every(x=>x%2==0);   // true
-[1,3,4].some(x=>x%2==0);    // true
-[1,2,3].fill(0,1);          // [1,0,0]
+// let res = array.reduceRight((a, b) => {  ### reduceright method
+//   return a + b
+// })
 
-Array.from("abc");          // ["a","b","c"]
-Array.isArray([1,2]);       // true
+// let res = array.reverse()   # reverse method
 
+// let res = array.some((item) => {   ### some method
+//   return item < 50
+// })
 
----
+// let res = array.sort((a, b) => {   ### sort method
+//   return a - b
+// })
 
-🔹 Object Methods
+// let res = array.toLocaleString()              ### tolocatstring method
 
-Keys & Values
+// let res = array.values()     ### values method
 
-Object.keys({a:1,b:2});   // ["a","b"]
-Object.values({a:1,b:2}); // [1,2]
-Object.entries({a:1,b:2}); // [["a",1],["b",2]]
+// for (let value of res) {
+//  console.log(value)
+// }
 
-Create / Copy
-
-Object.assign({}, {a:1}, {b:2}); // {a:1,b:2}
-let copy = structuredClone({x:1}); // deep copy
-
-let proto = {x:1};
-let obj = Object.create(proto); // obj inherits from proto
-
-Locking
-
-let obj = {a:1};
-Object.freeze(obj); // no change allowed
-Object.seal(obj);   // no add/remove
-
-Other
-
-Object.is(NaN,NaN); // true
-Object.fromEntries([["a",1],["b",2]]); // {a:1,b:2}
-Object.hasOwn({a:1},"a"); // true
-
-
----
-
-🔹 Math Methods
-
-Rounding
-
-Math.abs(-5);    // 5
-Math.round(4.6); // 5
-Math.floor(4.9); // 4
-Math.ceil(4.1);  // 5
-Math.trunc(4.9); // 4
-
-Extremes
-
-Math.max(1,5,3); // 5
-Math.min(1,5,3); // 1
-
-Random & Power
-
-Math.random();    // e.g. 0.37
-Math.pow(2,3);    // 8
-Math.sqrt(16);    // 4
-Math.cbrt(27);    // 3
-
-Signs & Logs
-
-Math.sign(-5);  // -1
-Math.log(1);    // 0
-Math.log10(100); // 2
-Math.exp(1);     // 2.718...
-
-Trigonometry
-
-Math.sin(Math.PI/2); // 1
-Math.cos(0);         // 1
-Math.tan(Math.PI/4); // 1
-
-Constants
-
-Math.PI; // 3.14159...
-Math.E;  // 2.718...
-
+// console.log(res);
