@@ -1,0 +1,63 @@
+# 🔐 Auth API with Redux Toolkit Query
+
+This project shows how to implement **authentication (register & login)** using [Redux Toolkit Query](https://redux-toolkit.js.org/rtk-query/overview) with Redux store setup.
+
+---
+
+## 📌 Features
+- User **registration** (`/register`)
+- User **login** (`/login`)
+- Built with **RTK Query**
+- **Cookies enabled** (`credentials: "include"`)
+- Dynamic API `baseUrl`
+
+---
+
+## 📂 Auth API Code
+
+```javascript
+// features/auth/authApi.js
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getBaseUrl } from "../../../utils/getBaseUrl";
+
+const authApi = createApi({
+  reducerPath: "authApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${getBaseUrl}/auth/api`,
+    credentials: "include", // send cookies
+  }),
+  endpoints: (build) => ({
+    registerUser: build.mutation({
+      query: (newUser) => ({
+        url: "/register",
+        method: "POST",
+        body: newUser,
+      }),
+    }),
+    logInUser: build.mutation({
+      query: (credentials) => ({
+        url: "/login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
+  }),
+});
+
+export const { useRegisterUserMutation, useLogInUserMutation } = authApi;
+export default authApi;
+```
+```javascript
+import { configureStore } from "@reduxjs/toolkit";
+import authApi from "./features/auth/authApi";
+
+export const store = configureStore({
+  reducer: {
+    // Add the generated reducer as a specific top-level slice
+    [authApi.reducerPath]: authApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(authApi.middleware),
+});
+
+
