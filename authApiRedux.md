@@ -16,6 +16,7 @@ This project shows how to implement **authentication (register & login)** using 
 ## 📂 Auth API Code
 
 ```javascript
+// auth api
 // features/auth/authApi.js
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getBaseUrl } from "../../../utils/getBaseUrl";
@@ -23,7 +24,7 @@ import { getBaseUrl } from "../../../utils/getBaseUrl";
 const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${getBaseUrl}/auth/api`,
+    baseUrl: `${getBaseUrl()}/auth/api`,
     credentials: "include", // send cookies
   }),
   endpoints: (build) => ({
@@ -48,6 +49,7 @@ export const { useRegisterUserMutation, useLogInUserMutation } = authApi;
 export default authApi;
 ```
 ```javascript
+// store
 import { configureStore } from "@reduxjs/toolkit";
 import authApi from "./features/auth/authApi";
 
@@ -59,5 +61,24 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authApi.middleware),
 });
+```
+```javascript
+// implement 
+const [registerUser, { isLoading, error }] = useRegisterUserMutation();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await registerUser(data).unwrap();
+      console.log(response);
+      toast.success(response.message);
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    } catch (error) {
+      console.log("register failed", error);
+      toast.error(error.data.message);
+    }
+  };
 
 
