@@ -24,7 +24,7 @@ import { getBaseUrl } from "../../../utils/getBaseUrl";
 const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${getBaseUrl()}/auth/api`,
+    baseUrl: `${getBaseUrl()}/api/auth`,
     credentials: "include", // send cookies
   }),
   endpoints: (build) => ({
